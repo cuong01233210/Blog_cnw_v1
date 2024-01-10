@@ -103,12 +103,34 @@ const CreateBlog = () => {
   const handleTitleFontChange = (font) => {
     setTitleFont(font);
   };
+  const showMyBlogs = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Assuming userEmail is available in your component
+      const response = await axios.post(
+        "http://localhost:8000/get-blogs-by-email",
+        {
+          email: userEmail,
+        }
+      );
+
+      const fetchedBlogs = response.data.blogs;
+
+      // Pass userEmail and fetchedBlogs to ViewMyBlog
+      navigate("/view-my-blog", { state: { userEmail, blogs: fetchedBlogs } });
+    } catch (error) {
+      console.error("Failed to fetch blogs:", error.message);
+    }
+  };
+
   return (
     <div className="container">
       <h1>Create Blog</h1>
       <div className="button-container">
         <button onClick={handleLogout}>Logout</button>
-        <button onClick={handleWatchBlog}>Watch Blog</button>
+
+        <button onClick={showMyBlogs}>Show My Blogs</button>
       </div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>

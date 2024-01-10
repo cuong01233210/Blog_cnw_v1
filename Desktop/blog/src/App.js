@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AuthPage from "./AuthPage";
 import CreateBlog from "./CreateBlog";
 import ViewBlog from "./ViewBlog";
+import ViewMyBlog from "./ViewMyBlog";
 function App() {
   return (
     <Router>
@@ -10,6 +11,7 @@ function App() {
         <Route path="/create-blog" element={<CreateBlog />} />
         <Route path="/login" element={<AuthPage />} />
         <Route path="/view-blog" element={<ViewBlog />} />
+        <Route path="/view-my-blog" element={<ViewMyBlog />} />
       </Routes>
     </Router>
   );

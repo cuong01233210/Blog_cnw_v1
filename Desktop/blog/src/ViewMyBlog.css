@@ -1,0 +1,21 @@
+/* ViewMyBlog.css */
+h1 {
+  color: red;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+blog-card {
+  max-width: 300px;
+  margin: 16px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
