@@ -6,6 +6,8 @@ const CreateBlog = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [audio, setAudio] = useState(null);
+  const [fontSizeTitle, setFontSizeTitle] = useState(14);
+  const [fontSizeContent, setFontSizeContent] = useState(14);
   const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
@@ -40,7 +42,13 @@ const CreateBlog = () => {
     // Navigate to WatchBlog page
     navigate("/watch-blog");
   };
+  const handleTitleFontSizeIncrease = () => {
+    setFontSizeTitle((prevSize) => prevSize + 1);
+  };
 
+  const handleTitleFontSizeDecrease = () => {
+    setFontSizeTitle((prevSize) => Math.max(prevSize - 1, 1));
+  };
   return (
     <div className="container">
       <h1>Create Blog</h1>
@@ -51,15 +59,49 @@ const CreateBlog = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
         <input
+          style={{ fontSize: `${fontSizeTitle}px` }}
           type="text"
           id="title"
           value={title}
           onChange={handleTitleChange}
         />
-
+        <div>
+          <span>Title font size: </span>
+          <button
+            style={{ fontSize: "10px", marginRight: "8px" }}
+            onClick={handleTitleFontSizeIncrease}
+          >
+            +
+          </button>
+          <button
+            style={{ fontSize: "10px" }}
+            onClick={handleTitleFontSizeDecrease}
+          >
+            -
+          </button>
+        </div>
         <label htmlFor="content">Content:</label>
-        <textarea id="content" value={content} onChange={handleContentChange} />
-
+        <textarea
+          id="content"
+          value={content}
+          style={{ fontSize: `${fontSizeContent}px` }}
+          onChange={handleContentChange}
+        />
+        <div>
+          <span>Content font size: </span>
+          <button
+            style={{ fontSize: "10px", marginRight: "8px" }}
+            onClick={handleTitleFontSizeIncrease}
+          >
+            +
+          </button>
+          <button
+            style={{ fontSize: "10px" }}
+            onClick={handleTitleFontSizeDecrease}
+          >
+            -
+          </button>
+        </div>
         <label htmlFor="image">Image:</label>
         <input
           type="file"
