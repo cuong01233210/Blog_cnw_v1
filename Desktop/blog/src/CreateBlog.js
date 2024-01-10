@@ -8,6 +8,8 @@ const CreateBlog = () => {
   const [audio, setAudio] = useState(null);
   const [fontSizeTitle, setFontSizeTitle] = useState(14);
   const [fontSizeContent, setFontSizeContent] = useState(14);
+  const [selectedContentFont, setSelectedFont] = useState("Calibri");
+  const [selectedTitleFont, setTitleFont] = useState("Calibri");
   const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
@@ -49,6 +51,21 @@ const CreateBlog = () => {
   const handleTitleFontSizeDecrease = () => {
     setFontSizeTitle((prevSize) => Math.max(prevSize - 1, 1));
   };
+
+  const handleContentFontSizeIncrease = () => {
+    setFontSizeContent((prevSize) => prevSize + 1);
+  };
+
+  const handleContentFontSizeDecrease = () => {
+    setFontSizeContent((prevSize) => Math.max(prevSize - 1, 1));
+  };
+
+  const handleContentFontChange = (font) => {
+    setSelectedFont(font);
+  };
+  const handleTitleFontChange = (font) => {
+    setTitleFont(font);
+  };
   return (
     <div className="container">
       <h1>Create Blog</h1>
@@ -59,7 +76,10 @@ const CreateBlog = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
         <input
-          style={{ fontSize: `${fontSizeTitle}px` }}
+          style={{
+            fontSize: `${fontSizeTitle}px`,
+            fontFamily: selectedTitleFont,
+          }}
           type="text"
           id="title"
           value={title}
@@ -68,39 +88,91 @@ const CreateBlog = () => {
         <div>
           <span>Title font size: </span>
           <button
-            style={{ fontSize: "10px", marginRight: "8px" }}
+            style={{ fontSize: "16px", marginRight: "8px" }}
             onClick={handleTitleFontSizeIncrease}
           >
             +
           </button>
           <button
-            style={{ fontSize: "10px" }}
+            style={{ fontSize: "16px" }}
             onClick={handleTitleFontSizeDecrease}
           >
             -
           </button>
         </div>
+
+        <div>
+          <label>Choose Title Font:</label>
+          <div>
+            <button
+              style={{ fontSize: "12px", marginRight: "8px" }}
+              type="button"
+              onClick={() => handleTitleFontChange("sans-serif")}
+            >
+              Sans-serif
+            </button>
+            <button
+              style={{ fontSize: "12px", marginRight: "8px" }}
+              type="button"
+              onClick={() => handleTitleFontChange("serif")}
+            >
+              Serif
+            </button>
+            {/* Add more font options as needed */}
+          </div>
+        </div>
+        <label htmlFor="image">Image:</label>
+        <input
+          type="file"
+          id="image"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
         <label htmlFor="content">Content:</label>
         <textarea
           id="content"
           value={content}
-          style={{ fontSize: `${fontSizeContent}px` }}
+          style={{
+            fontSize: `${fontSizeContent}px`,
+            fontFamily: selectedContentFont,
+          }}
           onChange={handleContentChange}
         />
         <div>
           <span>Content font size: </span>
           <button
-            style={{ fontSize: "10px", marginRight: "8px" }}
-            onClick={handleTitleFontSizeIncrease}
+            style={{ fontSize: "16px", marginRight: "8px" }}
+            onClick={handleContentFontSizeIncrease}
           >
             +
           </button>
           <button
-            style={{ fontSize: "10px" }}
-            onClick={handleTitleFontSizeDecrease}
+            style={{ fontSize: "16px" }}
+            onClick={handleContentFontSizeDecrease}
           >
             -
           </button>
+        </div>
+
+        <div>
+          <label>Choose Content Font:</label>
+          <div>
+            <button
+              style={{ fontSize: "12px", marginRight: "8px" }}
+              type="button"
+              onClick={() => handleContentFontChange("sans-serif")}
+            >
+              Sans-serif
+            </button>
+            <button
+              style={{ fontSize: "12px", marginRight: "8px" }}
+              type="button"
+              onClick={() => handleContentFontChange("serif")}
+            >
+              Serif
+            </button>
+            {/* Add more font options as needed */}
+          </div>
         </div>
         <label htmlFor="image">Image:</label>
         <input
