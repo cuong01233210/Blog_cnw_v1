@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./CreateBlog.css";
+import axios from "axios";
+
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -32,7 +34,7 @@ const CreateBlog = () => {
     setAudio(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(userEmail);
     const blogData = {
@@ -42,8 +44,32 @@ const CreateBlog = () => {
       audio, // Assuming you have the audio data or file URL
     };
 
+    const requestBlogData = {
+      email: userEmail, // Assuming userEmail is available in your component
+      title,
+      content,
+      image, // Assuming you have the image data or file URL
+      audio, // Assuming you have the audio data or file URL
+    };
+
+    try {
+      // Send a POST request to the server using axios
+      const response = await axios.post(
+        "http://localhost:8000/add-blog",
+        requestBlogData
+      );
+
+      // Handle the response
+      console.log(response.message);
+
+      // Navigate to ViewBlog with the blogData as state
+      navigate(`/view-blog`, { state: { blogData } });
+    } catch (error) {
+      // Handle error cases
+      console.error("Failed to add blog:", error.message);
+    }
     // Navigate to ViewBlog with the blogData as state
-    navigate(`/view-blog`, { state: { blogData } });
+    // navigate(`/view-blog`, { state: { blogData } });
   };
 
   const handleLogout = () => {
