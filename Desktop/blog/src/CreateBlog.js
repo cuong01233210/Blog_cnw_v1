@@ -4,8 +4,8 @@ import "./CreateBlog.css";
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState(null);
-  const [audio, setAudio] = useState(null);
+  const [image, setImage] = useState("");
+  const [audio, setAudio] = useState("");
   const [fontSizeTitle, setFontSizeTitle] = useState(14);
   const [fontSizeContent, setFontSizeContent] = useState(14);
   const [selectedContentFont, setSelectedFont] = useState("Calibri");
@@ -32,7 +32,16 @@ const CreateBlog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform blog submission logic here
+
+    const blogData = {
+      title,
+      content,
+      image, // Assuming you have the image data or file URL
+      audio, // Assuming you have the audio data or file URL
+    };
+
+    // Navigate to ViewBlog with the blogData as state
+    navigate(`/view-blog`, { state: { blogData } });
   };
 
   const handleLogout = () => {
@@ -88,14 +97,16 @@ const CreateBlog = () => {
         <div>
           <span>Title font size: </span>
           <button
+            type="button"
             style={{ fontSize: "16px", marginRight: "8px" }}
-            onClick={handleTitleFontSizeIncrease}
+            onClick={() => handleTitleFontSizeIncrease()}
           >
             +
           </button>
           <button
+            type="button"
             style={{ fontSize: "16px" }}
-            onClick={handleTitleFontSizeDecrease}
+            onClick={() => handleTitleFontSizeDecrease()}
           >
             -
           </button>
@@ -121,13 +132,7 @@ const CreateBlog = () => {
             {/* Add more font options as needed */}
           </div>
         </div>
-        <label htmlFor="image">Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
+
         <label htmlFor="content">Content:</label>
         <textarea
           id="content"
@@ -141,14 +146,16 @@ const CreateBlog = () => {
         <div>
           <span>Content font size: </span>
           <button
+            type="button"
             style={{ fontSize: "16px", marginRight: "8px" }}
-            onClick={handleContentFontSizeIncrease}
+            onClick={() => handleContentFontSizeIncrease()}
           >
             +
           </button>
           <button
+            type="button"
             style={{ fontSize: "16px" }}
-            onClick={handleContentFontSizeDecrease}
+            onClick={() => handleContentFontSizeDecrease()}
           >
             -
           </button>
@@ -174,23 +181,27 @@ const CreateBlog = () => {
             {/* Add more font options as needed */}
           </div>
         </div>
-        <label htmlFor="image">Image:</label>
+        <label htmlFor="image">Image URL:</label>
         <input
-          type="file"
+          type="text"
           id="image"
-          accept="image/*"
-          onChange={handleImageChange}
+          placeholder="Enter image URL"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
         />
 
-        <label htmlFor="audio">Audio:</label>
+        <label htmlFor="audio">Audio URL:</label>
         <input
-          type="file"
+          type="text"
           id="audio"
-          accept="audio/*"
-          onChange={handleAudioChange}
+          placeholder="Enter audio URL"
+          value={audio}
+          onChange={(e) => setAudio(e.target.value)}
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </form>
     </div>
   );
