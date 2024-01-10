@@ -103,6 +103,26 @@ const CreateBlog = () => {
   const handleTitleFontChange = (font) => {
     setTitleFont(font);
   };
+  // const showMyBlogs = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     // Assuming userEmail is available in your component
+  //     const response = await axios.post(
+  //       "http://localhost:8000/get-blogs-by-email",
+  //       {
+  //         email: userEmail,
+  //       }
+  //     );
+
+  //     const fetchedBlogs = response.data.blogs;
+
+  //     // Pass userEmail and fetchedBlogs to ViewMyBlog
+  //     navigate("/view-my-blog", { state: { userEmail, blogs: fetchedBlogs } });
+  //   } catch (error) {
+  //     console.error("Failed to fetch blogs:", error.message);
+  //   }
+  // };
   const showMyBlogs = async (e) => {
     e.preventDefault();
 
@@ -117,8 +137,24 @@ const CreateBlog = () => {
 
       const fetchedBlogs = response.data.blogs;
 
-      // Pass userEmail and fetchedBlogs to ViewMyBlog
-      navigate("/view-my-blog", { state: { userEmail, blogs: fetchedBlogs } });
+      // Fetch comments for each blog
+      const blogsWithComments = await Promise.all(
+        fetchedBlogs.map(async (blog) => {
+          const commentsResponse = await axios.post(
+            "http://localhost:8000/get-blog-comments-by-blog-id",
+            {
+              blogId: blog.id,
+            }
+          );
+          const comments = commentsResponse.data.comments || [];
+          return { ...blog, comments };
+        })
+      );
+
+      // Pass userEmail and blogsWithComments to ViewMyBlog
+      navigate("/view-my-blog", {
+        state: { userEmail, blogs: blogsWithComments },
+      });
     } catch (error) {
       console.error("Failed to fetch blogs:", error.message);
     }
