@@ -21,9 +21,12 @@ function AuthPage() {
 
   const onSuccess = (response) => {
     console.log("SUCCESS", response);
-
-    // Truy cập vào màn hình CreateBlog sau khi đăng nhập thành công
-    navigate("/create-blog");
+    // Extract email from the response
+    const userEmail = response.profileObj.email;
+    // Print the login email
+    console.log("Logged in with email:", userEmail);
+    // Navigate to CreateBlog and pass the email as a parameter
+    navigate("/create-blog", { state: { userEmail } });
   };
 
   const onFailure = (response) => {

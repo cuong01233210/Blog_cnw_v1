@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./CreateBlog.css";
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +10,8 @@ const CreateBlog = () => {
   const [fontSizeContent, setFontSizeContent] = useState(14);
   const [selectedContentFont, setSelectedFont] = useState("Calibri");
   const [selectedTitleFont, setTitleFont] = useState("Calibri");
+  const location = useLocation();
+  const { userEmail } = location.state || {};
   const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
@@ -32,7 +34,7 @@ const CreateBlog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(userEmail);
     const blogData = {
       title,
       content,
