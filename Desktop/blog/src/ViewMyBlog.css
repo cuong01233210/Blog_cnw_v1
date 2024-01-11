@@ -1,13 +1,12 @@
-/* ViewMyBlog.css */
 h1 {
   color: red;
   font-size: 36px;
   margin-bottom: 30px;
 }
 
-blog-card {
-  max-width: 300px;
-  margin: 16px;
+.blog-card {
+  width: 100%; /* Make the card take up the full width of the container */
+  margin: 16px 0; /* Adjust the margin as needed */
   padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -18,4 +17,13 @@ blog-card {
 
 .blog-card:hover {
   transform: scale(1.05);
+}
+.delete-button {
+  position: relative;
+  margin-left: 40px; /* Adjusted padding as per your requirement */
+  background-color: #ff0000; /* Red background color */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

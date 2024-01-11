@@ -4,6 +4,7 @@ import AuthPage from "./AuthPage";
 import CreateBlog from "./CreateBlog";
 import ViewBlog from "./ViewBlog";
 import ViewMyBlog from "./ViewMyBlog";
+import ShowEveryoneBlog from "./ShowEveryoneBlog";
 function App() {
   return (
     <Router>
@@ -12,6 +13,7 @@ function App() {
         <Route path="/login" element={<AuthPage />} />
         <Route path="/view-blog" element={<ViewBlog />} />
         <Route path="/view-my-blog" element={<ViewMyBlog />} />
+        <Route path="/show-everyone-blog" element={<ShowEveryoneBlog />} />
       </Routes>
     </Router>
   );
